@@ -36,8 +36,10 @@ Repositori ini berisi implementasi dan hasil pengujian performa server API stati
 1. Pastikan Node.js dan k6 sudah terinstall
 3. Jalankan 4 perintah berikut di PowerShell untuk membuat 4 file dummy
 ```powershell
-$f = New-Object Byte[] 1024; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-1kb.bin", $f)$f = New-Object Byte[] 102400; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-100kb.bin", $f)
-$f = New-Object Byte[] 1048576; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-1mb.bin", $f)$f = New-Object Byte[] 10485760; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-10mb.bin", $f)
+$f = New-Object Byte[] 1024; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-1kb.bin", $f)
+$f = New-Object Byte[] 102400; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-100kb.bin", $f)
+$f = New-Object Byte[] 1048576; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-1mb.bin", $f)
+$f = New-Object Byte[] 10485760; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-10mb.bin", $f)
 ```
 2. Sesuaikan konstanta FILE pada server.js sesuai dengan file yang ingin dipakai
 3. Run server dengan mengetik perintah "node server.js" pada terminal
