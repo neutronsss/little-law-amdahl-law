@@ -7,7 +7,7 @@ Repositori ini berisi implementasi dan hasil pengujian performa server API stati
 ## Anggota Kelompok
 1. Stefani Ayudya Prasetyo - L02240
 2. Jimly Syahbatin - L0224033
-3. Nadhifa Sakha Tri Yasmin - L02240
+3. Nadhifa Sakha Tri Yasmin - L0224036
 4. Kayla Maharani Muzakki - L02240
 
 ---
