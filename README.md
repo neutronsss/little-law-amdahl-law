@@ -41,6 +41,6 @@ $f = New-Object Byte[] 102400; (New-Object Random).NextBytes($f); [IO.File]::Wri
 $f = New-Object Byte[] 1048576; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-1mb.bin", $f)
 $f = New-Object Byte[] 10485760; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-10mb.bin", $f)
 ```
-2. Sesuaikan konstanta FILE pada server.js sesuai dengan file yang ingin dipakai
+2. Sesuaikan konstanta FILE pada test_little.js sesuai dengan file yang ingin dipakai
 3. Run server dengan mengetik perintah "node server.js" pada terminal
 4. Jalankan perintah "k6 run test_little.js" pada window terminal baru
