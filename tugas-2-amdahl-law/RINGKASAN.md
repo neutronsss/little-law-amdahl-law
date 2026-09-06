@@ -37,32 +37,34 @@
 
 ## 3. Interpretasi & Bukti Amdahl's Law
 
-**Kecepatan (Speedup) dihitung dari throughput:**
+**Kecepatan (Speedup) aktual dihitung dari perbandingan throughput:**
 
 ```
-S(2) = T(1 node) / T(2 node) = 2.43 / 2.33 = 1.04×
-S(3) = T(1 node) / T(3 node) = 2.43 / 2.32 = 1.05×
+Speedup(3) = Throughput(3 node) / Throughput(1 node) 
+Speedup(3) = 2.32 / 2.43 = 0.954×
 ```
 
 **Apa yang terlihat:**
 
-1. **Throughput nyaris tidak berubah** walau jumlah pemroses dinaikkan 3× lipat (2.43 → 2.32 req/s, speedup ±1.05×). Ini bukan kebetulan — sistem dibatasi oleh **porsi serial** (fraction serial `1-p`): Nginx sebagai **gerbang masuk tunggal yang berurutan** + resource **satu mesin** (CPU/RAM/memori) yang dipakai bersama semua node.
+1. **Sistem mengalami pelambatan (slowdown)** walau jumlah pemroses dinaikkan 3× lipat. Bukannya makin cepat, sistem memproses lebih sedikit request (2.43 → 2.32 req/s, dengan Speedup < 1). Ini terjadi karena penambahan Nginx di depan memicu *overhead* komunikasi dan sistem dibatasi oleh **porsi serial** (Nginx sebagai gerbang masuk tunggal yang berurutan) serta resource hardware tunggal (satu mesin memperebutkan Disk/RAM untuk ketiga node).
 2. **Latency rata-rata mendatar** (18.33 → 18.51 s) — memperbanyak node tidak mempercepat penyelesaian satu request besar (file 10 MB harus mengalir utuh melewati Nginx → node → kembali).
-3. Efek paralel yang nyata hanya terlihat pada **latency ekor (p95/p99)**: makin banyak node makin pendek antrean di tiap node (31.26 → 28.66 → 25.26 s). Paralelisme meredakan *queueing*, tapi tidak menaikkan total kapasitas karena gatekeeper (Nginx) dan mesinnya tetap satu.
+3. Efek paralel yang nyata hanya terlihat pada **latency ekor (p95/p99)**: makin banyak node makin pendek antrean di tiap node (31.26 → 28.66 → 25.26 s). Paralelisme meredakan *queueing*, tapi tidak menaikkan total kapasitas.
 
 **Matematika pembatas (untuk laporan Anggota 2):**
 
 ```
 Amdahl: Speedup(N) = 1 / ( (1 − p) + p / N )
+
+0.954 = 1 / ( (1 - p) + p / 3 )
+(1 - p) + 0.333p = 1 / 0.954
+1 - 0.667p = 1.048
+-0.667p = 0.048
+p = -0.072
 ```
 
-Dengan data di atas, porsi paralel teramati `p ≈ 0.07` — artinya hanya ~7% sistem ini dapat diparalelkan secara efektif; ±93% berupa porsi serial (bingkai `(1-p)`). Konsekuensinya, bahkan untuk `N → ∞`:
+Mendapatkan nilai fraksi paralel **p bernilai negatif (-0.072)** mengindikasikan bahwa sistem ini **100% didominasi oleh Fraksi Serial (1-p ≈ 100%)**. 
 
-```
-Speedup maks = 1 / (1 − p) ≈ 1 / 0.93 ≈ 1.08×
-```
-
-→ **Batas mutlak** peningkatan performa sistem ini sangat rendah karena bottleneck serialnya dominan — persis prediksi Amdahl's Law.
+→ **Batas mutlak** peningkatan performa sistem ini tidak ada. Sebaliknya, *overhead* yang dimasukkan Nginx membuat performa perlahan turun. Prediksi bottleneck serial pada Amdahl's Law terbukti dominan.
 
 ---
 
