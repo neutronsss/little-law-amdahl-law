@@ -1,11 +1,4 @@
 # Ringkasan Hasil Pengujian Tugas 2 — Amdahl's Law
-
-**Tim:** Desain Aplikasi Big Data (Semester 5)
-**Penanggung jawab (Lead Engineer: Server & Load Balancer):** Nadhifa Sakha Tri Yasmin
-**Basis pekerjaan:** Tugas 1 (server.js single node, Little's Law)
-
----
-
 ## 1. Arsitektur yang Diuji
 
 - **Node server:** 3 instance Node.js identik (`server.js` reuse dari Tugas 1, port dipilih via env `PORT`):
