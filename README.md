@@ -8,7 +8,7 @@ Repositori ini berisi implementasi dan hasil pengujian performa server API stati
 1. Stefani Ayudya Prasetyo - L02240
 2. Jimly Syahbatin - L0224033
 3. Nadhifa Sakha Tri Yasmin - L0224036
-4. Kayla Maharani Muzakki - L02240
+4. Kayla Maharani Muzakki - L0224050
 
 ---
 
@@ -23,10 +23,15 @@ Repositori ini berisi implementasi dan hasil pengujian performa server API stati
 ## 📁 Struktur Repositori
 ```text
 ├── tugas-1-little-law/
-│   ├── server.js          # API server port 3001
-│   ├── test_little.js     # Test script k6
+│   ├── server.js          
+│   ├── test_little.js     
 │   └── results/           
 ├── tugas-2-amdahl-law/
+│   ├── server.js          
+│   ├── test_amdahl.js     
+│   └── results/
+│   └── nginx/
+
 └── README.md
 ```
 
@@ -44,3 +49,10 @@ $f = New-Object Byte[] 10485760; (New-Object Random).NextBytes($f); [IO.File]::W
 2. Sesuaikan konstanta FILE pada test_little.js sesuai dengan file yang ingin dipakai
 3. Run server dengan mengetik perintah "node server.js" pada terminal
 4. Jalankan perintah "k6 run test_little.js" pada window terminal baru
+
+## Cara menjalankan tugas 2:
+1. Pastikan **Node.js**, **k6**, dan **Docker Desktop** sudah terinstall dan aktif
+2. Masuk ke direktori `tugas-2-amdahl-law`
+3. Jalankan perintah PowerShell berikut untuk memastikan file dummy 10MB sudah tersedia:
+```powershell
+$f = New-Object Byte[] 10485760; (New-Object Random).NextBytes($f); [IO.File]::WriteAllBytes("file-10mb.bin", $f)
